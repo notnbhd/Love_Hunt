@@ -1,0 +1,16 @@
+# Core Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+
+# NLP & Embeddings
+sentence-transformers>=2.2.0
+
+# Web Framework
+streamlit>=1.28.0
+
+# Recommendation System
+scipy>=1.11.0
+
+# Utilities
+tqdm>=4.66.0

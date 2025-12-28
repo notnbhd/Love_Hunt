@@ -1,0 +1,319 @@
+============================================================
+💘 AI DATING RECOMMENDATION SYSTEM
+============================================================
+Data path: ./data/okcupid_profiles.csv
+Sample size: 20000
+Output dir: ./output
+============================================================
+DATA PREPROCESSING PIPELINE
+============================================================
+
+============================================================
+🚀 STARTING DATA PREPROCESSING PIPELINE
+============================================================
+📂 Loading data...
+✅ Loaded 20000 profiles with 32 features
+
+🔧 Task 2.1: Handling Missing Values...
+   Columns with missing values: 24
+   → height: Imputed with median (68.00)
+   → body_type: Imputed with mode
+   → diet: Imputed with mode
+   → drinks: Imputed with mode
+   → drugs: Imputed with mode
+   → education: Imputed with mode
+   → ethnicity: Imputed with mode
+   → job: Imputed with mode
+   → offspring: Imputed with mode
+   → pets: Imputed with mode
+   → religion: Imputed with mode
+   → sign: Imputed with mode
+   → smokes: Imputed with mode
+   ✅ After handling: 1 columns with missing values
+
+🔧 Task 2.2: Data Normalization...
+   → age: StandardScaler applied (mean=32.4, std=9.5)
+   → height: StandardScaler applied
+   → income: MinMaxScaler applied
+   → Encoded 3 categorical columns with LabelEncoder
+   → drinks: One-hot encoded (5 categories)
+   → smokes: One-hot encoded (4 categories)
+   → drugs: One-hot encoded (2 categories)
+   ✅ Normalization complete
+
+🔧 Task 2.3: Removing Duplicates...
+   → Exact duplicates found: 0
+   → Near duplicates found: 1149
+   ✅ Removed 1149 duplicates (20000 → 18851 profiles)
+
+🔧 Task 2.4: Handling Outliers...
+   → age: 876 outliers (4.65%) capped
+   → height: 44 outliers (0.23%) capped
+   → income: 3642 outliers (19.32%) capped
+   ✅ Outliers handled using IQR method
+
+🔧 Extracting Interests...
+   → Extracted 10 interest categories
+   ✅ Interest extraction complete
+
+============================================================
+✅ PREPROCESSING COMPLETE
+   Final dataset: 18851 profiles
+============================================================
+
+💾 Saved cleaned data to ./output\cleaned_data.csv
+
+📋 Preprocessing Report:
+  original_shape: (20000, 32)
+  missing_before: {'body_type': 1813, 'diet': 8182, 'drinks': 1017, 'drugs': 4807, 'education': 2203, 'ethnicity': 1880, 'height': 2, 'job': 2769, 'offspring': 11881, 'pets': 6697, 'religion': 6782, 'sign': 3709, 'smokes': 1857, 'speaks': 14, 'essay0': 1881, 'essay1': 2537, 'essay2': 3228, 'essay3': 3804, 'essay4': 3497, 'essay5': 3541, 'essay6': 4557, 'essay7': 4117, 'essay8': 6439, 'essay9': 4215}
+  missing_after: {'speaks': 14}
+  normalized_columns: ['age', 'height', 'income']
+  encoded_columns: ['sex', 'orientation', 'status']
+  duplicates: {'exact_duplicates': np.int64(0), 'near_duplicates': np.int64(1149), 'total_removed': 1149, 'original_count': 20000, 'final_count': 18851}
+  outliers: {'age': {'count': np.int64(876), 'percentage': np.float64(4.65), 'lower_bound': np.float64(9.5), 'upper_bound': np.float64(53.5)}, 'height': {'count': np.int64(44), 'percentage': np.float64(0.23), 'lower_bound': np.float64(56.0), 'upper_bound': np.float64(80.0)}, 'income': {'count': np.int64(3642), 'percentage': np.float64(19.32), 'lower_bound': np.float64(-1.0), 'upper_bound': np.float64(-1.0)}}
+
+============================================================
+GENERATING EMBEDDINGS
+============================================================
+🔄 Loading Sentence-BERT model: all-MiniLM-L6-v2...
+✅ Model loaded successfully (embedding dim: 384)
+🔄 Generating embeddings for 18851 texts...
+Batches: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 295/295 [10:22<00:00,  2.11s/it]
+💾 Embeddings cached successfully
+✅ Generated embeddings: shape (18851, 384)
+✅ Bio embeddings shape: (18851, 384)
+✅ Interest matrix shape: (18851, 15)
+
+============================================================
+TRAINING RECOMMENDATION MODELS
+============================================================
+
+============================================================
+🚀 FITTING HYBRID RECOMMENDER
+============================================================
+🔄 Fitting Content-Based Recommender...
+   Pre-computed feature vectors for on-demand similarity
+✅ Content-Based Recommender fitted in 0.06s
+📊 Generating simulated interaction matrix...
+   Creating interaction matrix for 18851 users (target density: 5.0%)...
+      Processed 500/18851 users...
+      Processed 1000/18851 users...
+      Processed 1500/18851 users...
+      Processed 2000/18851 users...
+      Processed 2500/18851 users...
+      Processed 3000/18851 users...
+      Processed 3500/18851 users...
+      Processed 4000/18851 users...
+      Processed 4500/18851 users...
+      Processed 5000/18851 users...
+      Processed 5500/18851 users...
+      Processed 6000/18851 users...
+      Processed 6500/18851 users...
+      Processed 7000/18851 users...
+      Processed 7500/18851 users...
+      Processed 8000/18851 users...
+      Processed 8500/18851 users...
+      Processed 9000/18851 users...
+      Processed 9500/18851 users...
+      Processed 10000/18851 users...
+      Processed 10500/18851 users...
+      Processed 11000/18851 users...
+      Processed 11500/18851 users...
+      Processed 12000/18851 users...
+      Processed 12500/18851 users...
+      Processed 13000/18851 users...
+      Processed 13500/18851 users...
+      Processed 14000/18851 users...
+      Processed 14500/18851 users...
+      Processed 15000/18851 users...
+      Processed 15500/18851 users...
+      Processed 16000/18851 users...
+      Processed 16500/18851 users...
+      Processed 17000/18851 users...
+      Processed 17500/18851 users...
+      Processed 18000/18851 users...
+      Processed 18500/18851 users...
+   Created 26,402,402 interactions (actual density: 7.43%)
+🔄 Fitting Collaborative Filtering Recommender...
+   Running Truncated SVD with 100 factors...
+   Computing user similarities for KNN (50 neighbors)...
+   Explained variance ratio: 3.18%
+✅ Collaborative Filtering fitted in 9.84s
+============================================================
+✅ HYBRID RECOMMENDER READY
+============================================================
+
+
+============================================================
+💾 SAVING MODELS FOR INSTANT LOADING
+============================================================
+   ✅ Saved: ./cache\models\processed_df.pkl
+   ✅ Saved: ./cache\models\bio_embeddings.npy
+   ✅ Saved: ./cache\models\interest_matrix.npy
+   ✅ Saved: ./cache\models\hybrid_recommender.pkl
+   ✅ Saved: ./cache\models\metadata.pkl
+
+🎉 Models saved! Webapp will now load instantly.
+
+============================================================
+EVALUATING MODELS
+============================================================
+
+--------------------------------------------------
+📊 Evaluating Content-Based Model
+--------------------------------------------------
+📊 Creating ground truth using on-demand similarity...
+✅ Ground truth created for 18851 users
+
+📊 Evaluating Content-Based...
+✅ Content-Based evaluation complete
+
+--------------------------------------------------
+📊 Evaluating Collaborative Filtering Model
+--------------------------------------------------
+📊 Creating ground truth from collaborative filtering predictions...
+✅ Collaborative ground truth created for 18851 users
+
+📊 Evaluating Collaborative...
+✅ Collaborative evaluation complete
+
+--------------------------------------------------
+📊 Evaluating Hybrid Model
+--------------------------------------------------
+📊 Creating hybrid ground truth (content: 60%, collab: 40%)...
+✅ Hybrid ground truth created for 18851 users
+
+📊 Evaluating Hybrid...
+✅ Hybrid evaluation complete
+
+============================================================
+EVALUATION RESULTS
+============================================================
+                       model precision@5 recall@5  ndcg@5 precision@10 recall@10 ndcg@10 precision@20 recall@20 ndcg@20   mrr coverage diversity    rmse     mae
+Content-Based  Content-Based       0.922   0.2305  0.9418        0.729    0.3645  0.8036        0.388     0.388  0.5367  0.99   0.0924    0.2919     0.0     0.0
+Collaborative  Collaborative         1.0     0.25     1.0          1.0       0.5     1.0          1.0       1.0     1.0   1.0   0.0507    0.2403  0.2905  0.2674
+Hybrid                Hybrid       0.724    0.181  0.7807        0.442     0.221  0.5648       0.2225    0.2225  0.3657  0.96   0.0852    0.2684  0.0468  0.0361
+
+======================================================================
+DATING RECOMMENDATION SYSTEM - EVALUATION REPORT
+======================================================================
+Date: 2025-12-28 03:33:16
+Test Users: 100
+Total Users in Dataset: 18851
+
+======================================================================
+NOTE: Each model is evaluated with its OWN ground truth
+- Content-Based: Ground truth from content similarity
+- Collaborative: Ground truth from CF predictions
+- Hybrid: Ground truth combining both (60% CB + 40% CF)
+======================================================================
+
+
+==================================================
+📊 Content-Based
+==================================================
+  precision@5    : 0.922
+  recall@5       : 0.2305
+  ndcg@5         : 0.9418
+  precision@10   : 0.729
+  recall@10      : 0.3645
+  ndcg@10        : 0.8036
+  precision@20   : 0.388
+  recall@20      : 0.388
+  ndcg@20        : 0.5367
+  mrr            : 0.99
+  coverage       : 0.0924
+  diversity      : 0.29190000891685486
+  rmse           : 0.0
+  mae            : 0.0
+
+==================================================
+📊 Collaborative
+==================================================
+  precision@5    : 1.0
+  recall@5       : 0.25
+  ndcg@5         : 1.0
+  precision@10   : 1.0
+  recall@10      : 0.5
+  ndcg@10        : 1.0
+  precision@20   : 1.0
+  recall@20      : 1.0
+  ndcg@20        : 1.0
+  mrr            : 1.0
+  coverage       : 0.0507
+  diversity      : 0.2402999997138977
+  rmse           : 0.2904999852180481
+  mae            : 0.26739999651908875
+
+==================================================
+📊 Hybrid
+==================================================
+  precision@5    : 0.724
+  recall@5       : 0.181
+  ndcg@5         : 0.7807
+  precision@10   : 0.442
+  recall@10      : 0.221
+  ndcg@10        : 0.5648
+  precision@20   : 0.2225
+  recall@20      : 0.2225
+  ndcg@20        : 0.3657
+  mrr            : 0.96
+  coverage       : 0.0852
+  diversity      : 0.26840001344680786
+  rmse           : 0.0468
+  mae            : 0.0361
+
+======================================================================
+COMPARISON TABLE
+======================================================================
+                       model precision@5 recall@5  ndcg@5 precision@10 recall@10 ndcg@10 precision@20 recall@20 ndcg@20   mrr coverage diversity    rmse     mae
+Content-Based  Content-Based       0.922   0.2305  0.9418        0.729    0.3645  0.8036        0.388     0.388  0.5367  0.99   0.0924    0.2919     0.0     0.0
+Collaborative  Collaborative         1.0     0.25     1.0          1.0       0.5     1.0          1.0       1.0     1.0   1.0   0.0507    0.2403  0.2905  0.2674
+Hybrid                Hybrid       0.724    0.181  0.7807        0.442     0.221  0.5648       0.2225    0.2225  0.3657  0.96   0.0852    0.2684  0.0468  0.0361
+
+======================================================================
+METRIC DEFINITIONS
+======================================================================
+  Precision@K  : Fraction of recommended items that are relevant
+  Recall@K     : Fraction of relevant items that are recommended
+  NDCG@K       : Normalized Discounted Cumulative Gain (ranking quality)
+  MRR          : Mean Reciprocal Rank (position of first relevant item)
+  Coverage     : Fraction of items ever recommended
+  Diversity    : Average dissimilarity within recommendation lists
+  RMSE         : Root Mean Squared Error (lower is better)
+  MAE          : Mean Absolute Error (lower is better)
+======================================================================
+
+📄 Evaluation results saved to: ./output\evaluation_results.txt
+📊 Saved: ./output\evaluation_results.png
+
+============================================================
+GENERATING VISUALIZATIONS
+============================================================
+
+============================================================
+📊 GENERATING VISUALIZATIONS
+============================================================
+📊 Saved: ./output\visualizations/age_distribution.png
+📊 Saved: ./output\visualizations/category_frequency.png
+📊 Saved: ./output\visualizations/top_locations.png
+📊 Saved: ./output\visualizations/correlation_heatmap.png
+📊 Saved: ./output\visualizations/interest_analysis.png
+📊 Saved: ./output\visualizations/gender_orientation.png
+📊 Saved: ./output\visualizations/bio_analysis.png
+
+✅ Generated 7 visualizations in ./output\visualizations
+
+============================================================
+✅ PIPELINE COMPLETE
+============================================================
+
+Results saved to: ./output
+To launch the web app, run: python main.py --webapp
+
+============================================================
+✅ PIPELINE COMPLETE
+============================================================
+
+Results saved to: ./output
+To launch the web app, run: python main.py --webapp

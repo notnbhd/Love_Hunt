@@ -1,0 +1,70 @@
+======================================================================
+DATING RECOMMENDATION SYSTEM - EVALUATION REPORT
+======================================================================
+Date: 2025-12-28 03:33:16
+Test Users: 100
+Total Users in Dataset: 18851
+
+======================================================================
+NOTE: Each model is evaluated with its OWN ground truth
+- Content-Based: Ground truth from content similarity
+- Collaborative: Ground truth from CF predictions
+- Hybrid: Ground truth combining both (60% CB + 40% CF)
+======================================================================
+
+
+==================================================
+📊 Content-Based
+==================================================
+  precision@5    : 0.922
+  recall@5       : 0.2305
+  ndcg@5         : 0.9418
+  precision@10   : 0.729
+  recall@10      : 0.3645
+  ndcg@10        : 0.8036
+  precision@20   : 0.388
+  recall@20      : 0.388
+  ndcg@20        : 0.5367
+  mrr            : 0.99
+  coverage       : 0.0924
+  diversity      : 0.29190000891685486
+  rmse           : 0.0
+  mae            : 0.0
+
+==================================================
+📊 Hybrid
+==================================================
+  precision@5    : 0.724
+  recall@5       : 0.181
+  ndcg@5         : 0.7807
+  precision@10   : 0.442
+  recall@10      : 0.221
+  ndcg@10        : 0.5648
+  precision@20   : 0.2225
+  recall@20      : 0.2225
+  ndcg@20        : 0.3657
+  mrr            : 0.96
+  coverage       : 0.0852
+  diversity      : 0.26840001344680786
+  rmse           : 0.0468
+  mae            : 0.0361
+
+======================================================================
+COMPARISON TABLE
+======================================================================
+                       model precision@5 recall@5  ndcg@5 precision@10 recall@10 ndcg@10 precision@20 recall@20 ndcg@20   mrr coverage diversity    rmse     mae
+Content-Based  Content-Based       0.922   0.2305  0.9418        0.729    0.3645  0.8036        0.388     0.388  0.5367  0.99   0.0924    0.2919     0.0     0.0
+Hybrid                Hybrid       0.724    0.181  0.7807        0.442     0.221  0.5648       0.2225    0.2225  0.3657  0.96   0.0852    0.2684  0.0468  0.0361
+
+======================================================================
+METRIC DEFINITIONS
+======================================================================
+  Precision@K  : Fraction of recommended items that are relevant
+  Recall@K     : Fraction of relevant items that are recommended
+  NDCG@K       : Normalized Discounted Cumulative Gain (ranking quality)
+  MRR          : Mean Reciprocal Rank (position of first relevant item)
+  Coverage     : Fraction of items ever recommended
+  Diversity    : Average dissimilarity within recommendation lists
+  RMSE         : Root Mean Squared Error (lower is better)
+  MAE          : Mean Absolute Error (lower is better)
+======================================================================
