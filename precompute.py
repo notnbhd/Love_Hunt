@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src
 DATA_PATH = './data/okcupid_profiles.csv'
 CACHE_DIR = './cache'
 MODEL_DIR = './cache/models'
-SAMPLE_SIZE = 20000  # Set to None for full dataset (slower)
+SAMPLE_SIZE = 10000  # Set to None for full dataset (slower)
 
 def main():
     start_total = time.time()

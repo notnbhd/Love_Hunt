@@ -85,7 +85,6 @@ Thumbs.db
 *.temp
 
 # Cache folder - will be regenerated on server
-cache/models/hybrid_recommender.pkl
 
 # Scratch folder
 scratch
